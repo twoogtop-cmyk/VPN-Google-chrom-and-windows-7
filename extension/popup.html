@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VLESS VPN</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="card">
+      <h1>VLESS VPN</h1>
+      <p class="offer">Получить ключ бесплатно на 3 дня. Ежемесячная подписка от 169 рублей.</p>
+      <a
+        class="cta-link"
+        href="https://cp.sevenskull.ru/login"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Получить ключ на 3 дня
+      </a>
+      <div class="quick-guide">
+        <strong>Быстрый старт</strong>
+        <ol>
+          <li>Открой Chrome (или ярлык VLESS VPN Chrome из полного комплекта)</li>
+          <li>Получи конфиг в личном кабинете</li>
+          <li>Вставь VLESS ссылку и нажми Включить</li>
+        </ol>
+      </div>
+      <div class="wizard">
+        <button id="checkController" class="btn small">Проверить контроллер</button>
+        <button id="checkTunnel" class="btn small">Проверить подключение</button>
+      </div>
+      <label for="vless">VLESS ссылка</label>
+      <textarea id="vless" placeholder="vless://uuid@host:port?..." rows="5"></textarea>
+      <div class="controls">
+        <button id="toggle" class="btn primary">Включить</button>
+        <button id="save" class="btn">Сохранить</button>
+      </div>
+      <p id="status" class="status"></p>
+      <p class="hint">Требуется локальный контроллер на 127.0.0.1:23999</p>
+      <a
+        class="cabinet-link"
+        href="https://cp.sevenskull.ru/login"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Личный кабинет (получить VLESS конфиг)
+      </a>
+      <p class="hint">Если ошибка: используй ярлык "VLESS VPN Restart Controller"</p>
+      <p class="hint">Если ставил из магазина: запусти companion-установщик локального контроллера</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+  </html>

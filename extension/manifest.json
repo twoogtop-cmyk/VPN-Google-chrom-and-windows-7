@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "VLESS VPN Switch",
+  "short_name": "VLESS VPN",
+  "description": "Enable/disable browser proxy from a VLESS link using a local Xray controller.",
+  "version": "0.1.0",
+  "homepage_url": "https://cp.sevenskull.ru/login",
+  "minimum_chrome_version": "109",
+  "permissions": [
+    "storage",
+    "proxy",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "VLESS VPN",
+    "default_popup": "popup.html"
+  }
+}
