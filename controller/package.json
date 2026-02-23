@@ -1,0 +1,10 @@
+{
+  "name": "vless-extension-controller",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local controller that launches Xray for Chrome extension",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
