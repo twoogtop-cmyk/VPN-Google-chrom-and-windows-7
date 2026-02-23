@@ -1,119 +1,166 @@
-# Chrome extension: VLESS VPN toggle
+# Инструкция по установке (для новичков)
 
-## IMPORTANT: how to get VLESS link
+Эта инструкция сделана для новичков: пошагово, с ответами на частые вопросы.
 
-VLESS link is issued by request via support in personal cabinet:
+**Получить ключ бесплатно на 3 дня.**  
+Ежемесячная подписка от 169 рублей.  
 
-1. Open https://cp.sevenskull.ru/login
-2. Sign in
-3. Create support ticket
-4. Request VLESS configuration link (`vless://...`)
+**Личный кабинет:**  
+https://cp.sevenskull.ru/login  
 
-Without this link, VPN connection cannot be enabled.
+**Скачать комплект:**  
+https://disk.yandex.ru/d/4jZxeiIDFC5Aew  
 
-This project contains:
 
-- `extension/` - Chrome Extension (Manifest V3) with popup UI
-- `controller/` - local Node.js controller that starts/stops Xray from a VLESS URL
-- `install-windows.ps1` / `install-windows.bat` - automatic installer for Windows 7/10/11
-- `install-marketplace-windows.ps1` / `install-marketplace-windows.bat` - companion installer for users from Chrome Web Store
-- `uninstall-windows.ps1` / `uninstall-windows.bat` - full uninstall scripts
-- `package-webstore.ps1` - build ZIP for Chrome Web Store upload
-- `PRIVACY_POLICY.md` / `privacy-policy.html` - privacy policy templates
-- `check-windows.ps1` / `check-windows.bat` - quick diagnostics on Windows
+---
 
-## Why a local controller is required
+## ⚠️ Важно перед установкой
 
-Chrome extensions cannot implement the VLESS protocol tunnel directly. The extension can only set browser proxy settings.
+- Поддерживается: **Windows 7 / Windows 10 / Windows 11**
+- Нужен **Google Chrome**
+- Расширение может **не добавиться автоматически** в Chrome из-за политики безопасности браузера.  
+  Это нормально — ниже есть отдельный шаг, как добавить вручную за 1 минуту.
 
-So the architecture is:
+---
 
-1. You paste a `vless://...` link in the extension popup
-2. Extension sends the link to local controller (`127.0.0.1:23999`)
-3. Controller starts `xray` with generated config and local SOCKS inbound (`127.0.0.1:10808`)
-4. Extension enables Chrome proxy to `socks5://127.0.0.1:10808`
+## Шаг 1. Скачайте и распакуйте архив
 
-## Requirements
+1. Скачайте архив по ссылке выше  
+2. Нажмите правой кнопкой по архиву → **Извлечь всё**  
+3. Откройте распакованную папку  
 
-- Google Chrome
-- Node.js 18+
-- Xray installed and available in `PATH` as `xray`
+---
 
-## Auto install for Windows 7/10/11
+## Шаг 2. Запустите установщик
 
-Use this if you want easiest setup for non-technical users.
+1. Запустите файл **install-windows.bat**  
+   (рекомендуется: *Запуск от имени администратора*)  
+2. Дождитесь завершения установки  
+3. Если появится окно с текстом:
 
-1. Run `install-windows.bat` (as Administrator recommended)
-2. Wait for completion
-3. Use desktop shortcut **VLESS VPN Chrome**
-4. In extension popup: paste `vless://...` and click **Enable**
+Controller listening on http://127.0.0.1:23999
 
-Installer details:
 
-- Installs portable Node.js `v16.20.2` (good compatibility for older Windows)
-- Installs Xray-core `v1.8.14`
-- Creates autostart task `VlessChromeVpnController` (runs at logon)
-- Starts controller immediately after install
-- Creates desktop shortcuts:
-  - `VLESS VPN Chrome`
-  - `VLESS VPN Restart Controller`
-  - `VLESS VPN Uninstall`
+— всё работает правильно.
 
-## Marketplace companion mode
+---
 
-Use this when extension is installed from Chrome Web Store:
+## Шаг 3. Если расширение не появилось автоматически в Chrome
 
-1. Run `install-marketplace-windows.bat`
-2. Install extension from Chrome Web Store
-3. Open extension popup and click **Включить**
+**Самый частый вопрос. Сделайте вручную:**
 
-This mode installs only local runtime (controller + Node + Xray) required for VLESS tunnel.
+1. Откройте в Chrome:
+2 Включите **Режим разработчика** (справа сверху)
+3. Нажмите **Загрузить распакованное расширение**
+4. Выберите папку:
+C:\Users%USERNAME%\AppData\Local\VlessChromeVpn\extension
+5. Появится расширение **VLESS VPN**
 
-## Run controller
+Готово — расширение добавлено.
 
-```bash
-cd controller
-npm start
-```
+---
 
-You should see:
+## Шаг 4. Закрепите иконку расширения
 
-`Controller listening on http://127.0.0.1:23999`
+Чтобы не искать каждый раз:
 
-On Windows auto-install, this step is not required manually.
+1. Нажмите значок **пазла** в Chrome  
+2. Найдите **VLESS VPN**  
+3. Нажмите значок **булавки**
 
-## Load extension in Chrome
+Иконка появится рядом с адресной строкой.
 
-1. Open `chrome://extensions`
-2. Enable **Developer mode**
-3. Click **Load unpacked**
-4. Select the `extension` folder from this project
+---
 
-## Use
+## Шаг 5. Получите VLESS ссылку
 
-1. Open extension popup
-2. Paste VLESS link (issued via support ticket in personal cabinet)
-3. Click **Enable**
-4. If you need a new config, use personal cabinet: https://cp.sevenskull.ru/login
+1. Откройте личный кабинет  
+   https://cp.sevenskull.ru/login  
+2. Войдите в аккаунт  
+3. Скопируйте ссылку формата:
+vless://...
+Ссылку вы получите при запросе в поддержку.
 
-If successful, badge becomes `ON` and status shows SOCKS port.
+---
 
-Click **Disable** to stop routing.
+## Шаг 6. Подключите VPN
 
-## Added reliability features
+1. Нажмите иконку **VLESS VPN** в Chrome  
+2. Вставьте ссылку в поле **VLESS ссылка**  
+3. Нажмите **Сохранить**  
+4. Нажмите **Включить**
 
-- Auto-restore after Chrome restart (if VPN was enabled)
-- Health check every 1 minute from background worker
-- Automatic re-apply/restart if controller/Xray session is missing
-- Popup wizard buttons: controller check + connection test
+Если всё успешно — статус будет **«Включено»**.
 
-## Notes
+---
 
-- Controller currently supports common VLESS options: `tcp`, `ws`, `grpc`, `tls`, `reality`
-- If your URL uses exotic/rare transport settings, you may need to extend parser in `controller/server.js`
-- This changes **browser** proxy, not full system VPN
+## Шаг 7. Проверьте работу
 
-## Full uninstall
+1. Нажмите **Проверить контроллер**  
+2. Затем **Проверить подключение**  
+3. Если отображается текущий IP — VPN работает
 
-- Run `uninstall-windows.bat`
-- Or use desktop shortcut `VLESS VPN Uninstall`
+---
+
+## Как отключить VPN
+
+Откройте расширение и нажмите **Выключить**.
+
+---
+
+# ❓ Очень частые вопросы
+
+### 1. Почему расширение не установилось само?
+
+Chrome ограничивает автоматическую установку расширений.  
+Иногда нужно один раз добавить вручную через:
+chrome://extensions
+
+
+---
+
+### 2. Кнопка «Включить» нажимается, но интернета нет
+
+Проверьте:
+
+- Ссылка начинается с `vless://` и вставлена полностью  
+- Запустите ярлык **VLESS VPN Restart Controller**  
+- В расширении снова нажмите «Проверить контроллер»  
+- Проверьте дату и время Windows (особенно Windows 7)
+
+---
+
+### 3. Ошибка «Контроллер недоступен»
+
+- Запустите **VLESS VPN Restart Controller**  
+- Если не помогло — перезапустите компьютер  
+- Откройте расширение и снова выполните проверку  
+
+---
+
+### 4. Антивирус ругается на установщик
+
+Иногда защитник Windows блокирует `.bat` файлы.  
+Добавьте папку с установщиком в исключения или разрешите запуск вручную.
+
+---
+
+### 5. Работает ли это как VPN для всей системы Windows?
+
+Нет.  
+Это VPN/прокси только для **Google Chrome**.  
+Другие программы Windows через него не идут.
+
+---
+
+### 6. Где хранится VLESS ссылка?
+
+Локально в браузере (в хранилище расширения).
+
+---
+
+# Полное удаление
+
+1. Нажмите ярлык **VLESS VPN Uninstall** на рабочем столе  
+2. Или запустите файл **uninstall-windows.bat** из папки комплекта  
+3. При необходимости перезагрузите компьютер
